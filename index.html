@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Two Voice Lamps – Project Presentation</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0b0b16;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #f0f0f5;
+            padding: 12px;
+            margin: 0;
+        }
+
+        /* ===== WRAPPER ===== */
+        .app-wrapper {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(16, 16, 30, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 36px;
+            padding: 20px 16px 24px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        /* ===== PANELS ===== */
+        .panel {
+            display: none;
+            flex-direction: column;
+            animation: fadeSlide 0.35s ease-out;
+        }
+
+        .panel.active {
+            display: flex;
+        }
+
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== PRESENTATION PANEL (ENGLISH) ===== */
+        .presentation-panel {
+            text-align: center;
+            padding: 8px 4px 12px;
+        }
+
+        .presentation-panel .project-badge {
+            display: inline-block;
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid rgba(46, 204, 113, 0.25);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            color: #7ddfa0;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .presentation-panel h1 {
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f0e9b0, #f5d77b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .presentation-panel .sub-head {
+            font-size: 16px;
+            color: #b0b0d0;
+            margin-bottom: 20px;
+            font-weight: 300;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 16px;
+        }
+
+        .presentation-panel .project-desc {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 24px;
+            padding: 22px 18px;
+            margin: 10px 0 20px;
+            border-left: 4px solid #f5d77b;
+            text-align: left;
+            line-height: 1.7;
+        }
+
+        .presentation-panel .project-desc p {
+            font-size: 16px;
+            color: #d0d0ea;
+            margin-bottom: 12px;
+        }
+
+        .presentation-panel .project-desc .highlight {
+            color: #f5d77b;
+            font-weight: 500;
+        }
+
+        .presentation-panel .presenter-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 18px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 8px;
+        }
+
+        .presentation-panel .presenter-card .name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #f0e9b0;
+        }
+
+        .presentation-panel .presenter-card .title {
+            font-size: 14px;
+            color: #9999bb;
+            margin-top: 4px;
+        }
+
+        .presentation-panel .presenter-card .badge-eng {
+            display: inline-block;
+            margin-top: 8px;
+            background: rgba(52, 152, 219, 0.15);
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: #7abae0;
+            border: 1px solid rgba(52, 152, 219, 0.15);
+        }
+
+        .presentation-panel .footer-note {
+            margin-top: 22px;
+            font-size: 12px;
+            color: #666688;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== CONTROL PANEL (lamps interface) ===== */
+        .control-panel {
+            padding: 4px 0 8px;
+        }
+
+        .control-panel .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .control-panel .panel-header h2 {
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            color: #ddd;
+        }
+
+        .control-panel .panel-header .lamp-indicator {
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px 12px;
+            border-radius: 30px;
+            color: #aaa;
+        }
+
+        /* ===== LAMPS ===== */
+        .lamps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 500px) {
+            .lamps-container {
+                flex-direction: row;
+                gap: 12px;
+            }
+        }
+
+        .lamp-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 28px;
+            padding: 14px 8px;
+            flex: 1;
+        }
+
+        .lamp-label {
+            font-size: 17px;
+            font-weight: 600;
+            color: #ccc;
+            margin-bottom: 2px;
+        }
+
+        .bulb-container {
+            position: relative;
+            width: 100%;
+            min-height: 170px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bulb {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            background: #333344;
+            border-radius: 50% 50% 40% 40%;
+            box-shadow: 0 0 0 5px #2a2a3a, 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        @media (min-width: 400px) {
+            .bulb {
+                width: 140px;
+                height: 140px;
+            }
+        }
+
+        .bulkneck {
+            width: 36px;
+            height: 20px;
+            background: #2a2a3a;
+            margin: -4px auto 0;
+            border-radius: 0 0 8px 8px;
+            z-index: 1;
+        }
+
+        .bulkbase {
+            width: 48px;
+            height: 16px;
+            background: linear-gradient(180deg, #3a3a50, #2a2a3a);
+            margin: 0 auto;
+            border-radius: 0 0 12px 12px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .bulb.on {
+            background: #fff9e0;
+            box-shadow: 0 0 0 5px #3a3a50, 0 0 30px #ffdd44, 0 0 60px #ffaa00, 0 0 90px #ff8800, 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .bulb.on::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 45px;
+            height: 45px;
+            background: radial-gradient(circle, #ffffff 0%, #ffeeaa 60%, transparent 100%);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .bulb.on::after {
+            content: '💡';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            opacity: 0.25;
+        }
+
+        .filament {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 26px;
+            height: 26px;
+            border: 2px solid #666;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .bulb.on .filament {
+            border-color: #ff8800;
+            opacity: 0.6;
+            box-shadow: inset 0 0 8px #ff6600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 8px 0 6px;
+            background: #2a2a3a;
+            color: #aaa;
+            transition: all 0.3s;
+        }
+
+        .status-badge.on {
+            background: #2ecc71;
+            color: white;
+            box-shadow: 0 0 15px #2ecc71;
+        }
+
+        .status-badge.off {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .lamp-controls {
+            display: flex;
+            gap: 6px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .lamp-btn {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            min-width: 80px;
+        }
+
+        .btn-on {
+            background: #2ecc71;
+            color: white;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.25);
+        }
+
+        .btn-off {
+            background: #e74c3c;
+            color: white;
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.25);
+        }
+
+        .btn-on:active,
+        .btn-off:active {
+            transform: scale(0.95);
+        }
+
+        .global-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 12px 0 8px;
+            flex-wrap: wrap;
+        }
+
+        .global-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            flex: 1 1 120px;
+            max-width: 160px;
+        }
+
+        /* ===== MIC & VOICE ===== */
+        .mic-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 4px 0;
+        }
+
+        .mic-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+            transition: all 0.3s ease;
+            margin: 6px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .mic-button:active {
+            transform: scale(0.94);
+        }
+
+        .mic-button.listening {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+
+        .mic-icon {
+            font-size: 28px;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 18px rgba(46, 204, 113, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+            }
+        }
+
+        .voice-status {
+            margin-top: 12px;
+            padding: 12px 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 18px;
+            font-size: 13px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 4px solid #2ecc71;
+            backdrop-filter: blur(4px);
+            word-break: break-word;
+        }
+
+        .test-voice-btn {
+            margin-top: 6px;
+            padding: 6px 16px;
+            background: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .test-voice-btn:active {
+            background: #8e44ad;
+            transform: scale(0.97);
+        }
+
+        .commands {
+            margin-top: 14px;
+            display: flex;
+            gap: 6px;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding: 4px 0 8px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .commands::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cmd {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 11px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            white-space: nowrap;
+            flex-shrink: 0;
+            color: #aaa;
+        }
+
+        .firebase-indicator {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #6666aa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot.connected {
+            background: #2ecc71;
+            box-shadow: 0 0 8px #2ecc71;
+        }
+
+        .dot.disconnected {
+            background: #e74c3c;
+        }
+
+        /* ===== SIDE TOGGLE BUTTON ===== */
+        .side-toggle {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin-top: 18px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .side-toggle .toggle-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #c0c0dd;
+            padding: 10px 26px;
+            border-radius: 60px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s;
+            backdrop-filter: blur(4px);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .side-toggle .toggle-btn:active {
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .side-toggle .toggle-btn .icon-arrow {
+            display: inline-block;
+            transition: transform 0.3s;
+            font-size: 16px;
+        }
+
+        .side-toggle .toggle-btn .icon-arrow.flip {
+            transform: rotate(180deg);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 420px) {
+            .app-wrapper {
+                padding: 16px 12px 18px;
+            }
+
+            .presentation-panel h1 {
+                font-size: 24px;
+            }
+
+            .bulb {
+                width: 100px;
+                height: 100px;
+            }
+
+            .mic-button {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+
+        <!-- ========================================= -->
+        <!-- PANEL 1 : PRESENTATION (ENGLISH)          -->
+        <!-- ========================================= -->
+        <div class="panel presentation-panel active" id="presentationPanel">
+            <div class="project-badge">⚡ Embedded Electronics · IoT</div>
+            <h1>Voice‑Controlled<br />Dual Lamps</h1>
+            <div class="sub-head">Hands‑free lighting · Real‑time Firebase sync</div>
+
+            <div class="project-desc">
+                <p>
+                    <span class="highlight">This project</span> is part of the practical training in
+                    <span class="highlight">programmed electronics</span> within technical schools.
+                    It demonstrates how voice recognition, cloud synchronization and embedded
+                    logic can be combined to build an intuitive control system.
+                </p>
+                <p style="font-size:15px; color:#b8b8d8;">
+                    Two lamps are operated either by voice commands, touch buttons, or
+                    by clicking on the bulbs themselves. The state is shared in real‑time
+                    via Firebase.
+                </p>
+            </div>
+
+            <div class="presenter-card">
+                <div class="name">DIAMONEKA VAKANDA</div>
+                <div class="title">Electrical Engineering / Telecommunications</div>
+                <div class="badge-eng">🔧 M.Eng. · Embedded Systems</div>
+            </div>
+
+            <div class="footer-note">
+                — Designed for hands‑on learning in technical education —
+            </div>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- PANEL 2 : CONTROL INTERFACE (lamps)       -->
+        <!-- ========================================= -->
+        <div class="panel control-panel" id="controlPanel">
+
+            <div class="panel-header">
+                <h2>💡 Lamp Control</h2>
+                <span class="lamp-indicator">🎤 voice ready</span>
+            </div>
+
+            <!-- LAMPS -->
+            <div class="lamps-container">
+                <!-- Lampe 1 -->
+                <div class="lamp-wrapper">
+                    <div class="lamp-label">LAMP 1</div>
+                    <div class="bulb-container">
+                        <div class="bulb" id="bulb1">
+                            <div class="filament"></div>
+                        </div>
+                        <div class="bulkneck"></div>
+                        <div class="bulkbase"></div>
+                    </div>
+                    <div class="status-badge off" id="statusBadge1">⚫ OFF</div>
+                    <div class="lamp-controls">
+                        <button class="lamp-btn btn-on" id="manualOn1">ON</button>
+                        <button class="lamp-btn btn-off" id="manualOff1">OFF</button>
+                    </div>
+                </div>
+
+                <!-- Lampe 2 -->
+                <div class="lamp-wrapper">
+                    <div class="lamp-label">LAMP 2</div>
+                    <div class="bulb-container">
+                        <div class="bulb" id="bulb2">
+                            <div class="filament"></div>
+                        </div>
+                        <div class="bulkneck"></div>
+                        <div class="bulkbase"></div>
+                    </div>
+                    <div class="status-badge off" id="statusBadge2">⚫ OFF</div>
+                    <div class="lamp-controls">
+                        <button class="lamp-btn btn-on" id="manualOn2">ON</button>
+                        <button class="lamp-btn btn-off" id="manualOff2">OFF</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GLOBAL CONTROLS -->
+            <div class="global-controls">
+                <button class="global-btn btn-on" id="allOnBtn">🌟 ALL ON</button>
+                <button class="global-btn btn-off" id="allOffBtn">🌙 ALL OFF</button>
+            </div>
+
+            <!-- MIC -->
+            <div class="mic-section">
+                <button class="mic-button" id="micBtn">
+                    <span class="mic-icon">🎤</span>
+                    <span>Tap</span>
+                </button>
+            </div>
+
+            <button class="test-voice-btn" id="testVoiceBtn">🔊 Test voice</button>
+
+            <div class="voice-status" id="voiceStatus">
+                🎤 Tap the mic and speak
+            </div>
+
+            <!-- EXAMPLE COMMANDS -->
+            <div class="commands">
+                <span class="cmd">"Turn on lamp 1"</span>
+                <span class="cmd">"Turn off lamp 2"</span>
+                <span class="cmd">"All on"</span>
+                <span class="cmd">"All off"</span>
+                <span class="cmd">"Toggle lamp 1"</span>
+            </div>
+
+            <!-- FIREBASE STATUS -->
+            <div class="firebase-indicator" id="firebaseStatus">
+                <span class="dot" id="fbDot"></span>
+                <span id="fbText">Connecting Firebase...</span>
+            </div>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- SIDE TOGGLE BUTTON (navigation)           -->
+        <!-- ========================================= -->
+        <div class="side-toggle">
+            <button class="toggle-btn" id="togglePanelBtn">
+                <span class="icon-arrow" id="arrowIcon">▶</span>
+                <span id="toggleLabel">Go to Control</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- FIREBASE SDK                               -->
+    <!-- ========================================= -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js">
+    </script>
+
+    <script>
+        // ===================================================
+        // PANEL TOGGLE
+        // ===================================================
+        const presentationPanel = document.getElementById('presentationPanel');
+        const controlPanel = document.getElementById('controlPanel');
+        const toggleBtn = document.getElementById('togglePanelBtn');
+        const toggleLabel = document.getElementById('toggleLabel');
+        const arrowIcon = document.getElementById('arrowIcon');
+
+        let isPresentationVisible = true;
+
+        function togglePanels() {
+            isPresentationVisible = !isPresentationVisible;
+            if (isPresentationVisible) {
+                presentationPanel.classList.add('active');
+                controlPanel.classList.remove('active');
+                toggleLabel.textContent = 'Go to Control';
+                arrowIcon.textContent = '▶';
+                arrowIcon.classList.remove('flip');
+            } else {
+                presentationPanel.classList.remove('active');
+                controlPanel.classList.add('active');
+                toggleLabel.textContent = 'Back to Presentation';
+                arrowIcon.textContent = '◀';
+                arrowIcon.classList.add('flip');
+            }
+        }
+
+        toggleBtn.addEventListener('click', togglePanels);
+
+        // ===================================================
+        // FIREBASE CONFIG
+        // ===================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDajKpkXt7OZqMvk3beboRhlJjthYkzETs",
+            authDomain: "commande-vocale-9849f.firebaseapp.com",
+            databaseURL: "https://commande-vocale-9849f-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "commande-vocale-9849f",
+            storageBucket: "commande-vocale-9849f.firebasestorage.app",
+            messagingSenderId: "583381145494",
+            appId: "1:583381145494:web:d2db973ea42a5c7747efb7"
+        };
+
+        let database = null;
+        let firebaseReady = false;
+        let currentLampStates = { 1: 0, 2: 0 };
+        let voixDisponibles = [];
+        let voixSelectionnee = null;
+        let synthVocaleActive = false;
+
+        // DOM refs
+        const bulb1 = document.getElementById('bulb1');
+        const bulb2 = document.getElementById('bulb2');
+        const statusBadge1 = document.getElementById('statusBadge1');
+        const statusBadge2 = document.getElementById('statusBadge2');
+        const micBtn = document.getElementById('micBtn');
+        const voiceStatus = document.getElementById('voiceStatus');
+        const manualOn1 = document.getElementById('manualOn1');
+        const manualOff1 = document.getElementById('manualOff1');
+        const manualOn2 = document.getElementById('manualOn2');
+        const manualOff2 = document.getElementById('manualOff2');
+        const allOnBtn = document.getElementById('allOnBtn');
+        const allOffBtn = document.getElementById('allOffBtn');
+        const testVoiceBtn = document.getElementById('testVoiceBtn');
+        const fbDot = document.getElementById('fbDot');
+        const fbText = document.getElementById('fbText');
+
+        // ===================================================
+        // SYNTHESE VOCALE
+        // ===================================================
+        function initialiserSyntheseVocale() {
+            if ('speechSynthesis' in window) {
+                voixDisponibles = window.speechSynthesis.getVoices();
+                if (voixDisponibles.length === 0) {
+                    window.speechSynthesis.onvoiceschanged = () => {
+                        voixDisponibles = window.speechSynthesis.getVoices();
+                        choisirVoixFeminine();
+                    };
+                } else {
+                    choisirVoixFeminine();
+                }
+                synthVocaleActive = true;
+            }
+        }
+
+        function choisirVoixFeminine() {
+            const preferences = ['Google français', 'Microsoft Hortense', 'Amélie', 'female french', 'fr-FR'];
+            for (let pref of preferences) {
+                const voix = voixDisponibles.find(v =>
+                    (v.name.includes(pref) || v.lang.includes('fr')) &&
+                    (v.name.includes('female') || v.name.includes('femme') || v.name.includes('Google') || v.name.includes('Hortense'))
+                );
+                if (voix) { voixSelectionnee = voix; return; }
+            }
+            voixSelectionnee = voixDisponibles.find(v => v.lang.includes('fr')) || voixDisponibles[0];
+        }
+
+        function parler(texte) {
+            if (!synthVocaleActive) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(texte);
+            utterance.lang = 'fr-FR';
+            utterance.pitch = 1.4;
+            utterance.rate = 0.9;
+            utterance.volume = 1;
+            if (voixSelectionnee) utterance.voice = voixSelectionnee;
+            utterance.onstart = () => { voiceStatus.innerHTML = `🗣️ "${texte}"`; };
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // ===================================================
+        // VISUAL UPDATE
+        // ===================================================
+        function updateBulbVisual(lampId, etat) {
+            currentLampStates[lampId] = etat;
+            const bulb = lampId === 1 ? bulb1 : bulb2;
+            const badge = lampId === 1 ? statusBadge1 : statusBadge2;
+            if (etat === 1) {
+                bulb.classList.add('on');
+                badge.className = 'status-badge on';
+                badge.innerHTML = '💡 ON';
+            } else {
+                bulb.classList.remove('on');
+                badge.className = 'status-badge off';
+                badge.innerHTML = '⚫ OFF';
+            }
+        }
+
+        // ===================================================
+        // SEND TO FIREBASE + FEEDBACK
+        // ===================================================
+        function sendToFirebase(lampId, etat) {
+            // immediate visual feedback
+            if (lampId === 'all') {
+                updateBulbVisual(1, etat);
+                updateBulbVisual(2, etat);
+            } else {
+                updateBulbVisual(lampId, etat);
+            }
+
+            let message = '';
+            if (lampId === 'all') {
+                message = etat === 1 ? 'All lamps are on' : 'All lamps are off';
+                voiceStatus.innerHTML = etat === 1 ? '✅ All lamps ON' : '✅ All lamps OFF';
+            } else {
+                message = etat === 1 ? `Lamp ${lampId} is on` : `Lamp ${lampId} is off`;
+                voiceStatus.innerHTML = etat === 1 ? `✅ Lamp ${lampId} ON` : `✅ Lamp ${lampId} OFF`;
+            }
+            parler(message);
+
+            if (firebaseReady && database) {
+                const path = lampId === 'all' ? 'lampes' : `lampes/lampe${lampId}`;
+                const data = lampId === 'all' ? { lampe1: { etat: etat }, lampe2: { etat: etat } } : { etat: etat };
+                database.ref(path).set(data)
+                    .catch((error) => {
+                        voiceStatus.innerHTML = `❌ Firebase error: ${error.message}`;
+                        parler("Sorry, an error occurred");
+                    });
+            } else {
+                voiceStatus.innerHTML = '⚠️ Demo mode (Firebase not connected)';
+            }
+        }
+
+        // ===================================================
+        // FIREBASE INIT
+        // ===================================================
+        try {
+            firebase.initializeApp(firebaseConfig);
+            database = firebase.database();
+            firebaseReady = true;
+            fbDot.className = 'dot connected';
+            fbText.textContent = 'Firebase connected';
+
+            database.ref('lampes').once('value', (snapshot) => {
+                if (!snapshot.exists()) {
+                    database.ref('lampes').set({ lampe1: { etat: 0 }, lampe2: { etat: 0 } });
+                }
+            });
+
+            database.ref('lampes/lampe1/etat').on('value', (snapshot) => {
+                const etat = snapshot.val();
+                if (etat !== null) updateBulbVisual(1, etat);
+            });
+
+            database.ref('lampes/lampe2/etat').on('value', (snapshot) => {
+                const etat = snapshot.val();
+                if (etat !== null) updateBulbVisual(2, etat);
+            });
+
+            database.ref('.info/connected').on('value', (snap) => {
+                if (snap.val() === true) {
+                    fbDot.className = 'dot connected';
+                    fbText.textContent = 'Firebase connected';
+                } else {
+                    fbDot.className = 'dot disconnected';
+                    fbText.textContent = 'Firebase disconnected';
+                }
+            });
+        } catch (error) {
+            firebaseReady = false;
+            fbDot.className = 'dot disconnected';
+            fbText.textContent = 'Demo mode';
+        }
+
+        // ===================================================
+        // SPEECH RECOGNITION
+        // ===================================================
+        let recognition = null;
+        let isListening = false;
+
+        function initSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window) recognition = new webkitSpeechRecognition();
+            else if ('SpeechRecognition' in window) recognition = new SpeechRecognition();
+            else return false;
+
+            recognition.lang = 'fr-FR';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = () => {
+                isListening = true;
+                micBtn.classList.add('listening');
+                micBtn.innerHTML = '<span class="mic-icon">🎙️</span><span>Listening...</span>';
+                voiceStatus.innerHTML = '🎤 Listening... Speak now!';
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                micBtn.classList.remove('listening');
+                micBtn.innerHTML = '<span class="mic-icon">🎤</span><span>Tap</span>';
+            };
+
+            recognition.onerror = (event) => {
+                isListening = false;
+                micBtn.classList.remove('listening');
+                micBtn.innerHTML = '<span class="mic-icon">🎤</span><span>Tap</span>';
+                voiceStatus.innerHTML = `❌ Error: ${event.error}`;
+            };
+
+            recognition.onresult = (event) => {
+                const parole = event.results[0][0].transcript.toLowerCase().trim();
+                voiceStatus.innerHTML = `🗣️ You said: "${parole}"`;
+
+                // Command parsing (English & French friendly)
+                const allumerMatch = parole.match(/allume|allumer|allumé|allumez|active|activé|turn on|on|switch on/i);
+                const eteindreMatch = parole.match(/éteins|eteins|éteint|eteint|éteindre|eteindre|stop|arrête|désactive|turn off|off|switch off/i);
+                const lampe1Match = parole.match(/lampe\s*1|première\s*lampe|une|1|one|first/i);
+                const lampe2Match = parole.match(/lampe\s*2|deuxième\s*lampe|deux|2|two|second/i);
+                const toutMatch = parole.match(/tout|toutes|les deux|chaque|tous|all|both|every/i);
+
+                if (!allumerMatch && !eteindreMatch) {
+                    voiceStatus.innerHTML = `❓ Command not recognized: "${parole}"`;
+                    parler("I didn't understand. Try: turn on lamp 1 or turn off all");
+                    return;
+                }
+
+                const action = allumerMatch ? 1 : 0;
+                const verbe = action === 1 ? 'turn on' : 'turn off';
+
+                if (toutMatch || (lampe1Match && lampe2Match)) {
+                    sendToFirebase('all', action);
+                } else if (lampe1Match && !lampe2Match) {
+                    sendToFirebase(1, action);
+                } else if (lampe2Match && !lampe1Match) {
+                    sendToFirebase(2, action);
+                } else if (parole.includes('1') && !parole.includes('2')) {
+                    sendToFirebase(1, action);
+                } else if (parole.includes('2') && !parole.includes('1')) {
+                    sendToFirebase(2, action);
+                } else {
+                    voiceStatus.innerHTML = `❓ Which lamp to ${verbe}? Say 1, 2 or all.`;
+                    parler(`Which lamp to ${verbe}? Lamp 1, lamp 2, or all lamps?`);
+                }
+            };
+            return true;
+        }
+
+        // ===================================================
+        // EVENTS
+        // ===================================================
+        initialiserSyntheseVocale();
+
+        testVoiceBtn.addEventListener('click', () => {
+            parler("Hello, I'm working correctly. I can control two lamps with voice.");
+        });
+
+        micBtn.addEventListener('click', () => {
+            if (!initSpeechRecognition()) {
+                voiceStatus.innerHTML = '❌ Browser not supported. Use Chrome.';
+                return;
+            }
+            if (isListening) recognition.stop();
+            else recognition.start();
+        });
+
+        manualOn1.addEventListener('click', () => sendToFirebase(1, 1));
+        manualOff1.addEventListener('click', () => sendToFirebase(1, 0));
+        manualOn2.addEventListener('click', () => sendToFirebase(2, 1));
+        manualOff2.addEventListener('click', () => sendToFirebase(2, 0));
+        allOnBtn.addEventListener('click', () => sendToFirebase('all', 1));
+        allOffBtn.addEventListener('click', () => sendToFirebase('all', 0));
+
+        bulb1.addEventListener('click', () => sendToFirebase(1, currentLampStates[1] === 1 ? 0 : 1));
+        bulb2.addEventListener('click', () => sendToFirebase(2, currentLampStates[2] === 1 ? 0 : 1));
+
+        // init visuel
+        updateBulbVisual(1, 0);
+        updateBulbVisual(2, 0);
+        voiceStatus.innerHTML = '✅ Ready. Control the two lamps!';
+
+        setTimeout(() => {
+            if (synthVocaleActive) {
+                parler("Hello, I control two lamps. Say turn on lamp 1, turn off lamp 2, or all on.");
+            }
+        }, 1800);
+    </script>
+
+</body>
+
+</html>
