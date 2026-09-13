@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Two Voice Lamps – Project Presentation</title>
+    <title>Two Voice Lamps</title>
     <style>
-        /* ===== RESET & BASE ===== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,7 +13,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             background: #0b0b16;
             min-height: 100vh;
             display: flex;
@@ -22,10 +21,8 @@
             align-items: center;
             color: #f0f0f5;
             padding: 6px;
-            margin: 0;
         }
 
-        /* ===== WRAPPER ===== */
         .app-wrapper {
             max-width: 430px;
             width: 100%;
@@ -35,11 +32,9 @@
             padding: 14px 12px 16px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            position: relative;
             overflow: hidden;
         }
 
-        /* ===== PANELS ===== */
         .panel {
             display: none;
             flex-direction: column;
@@ -62,13 +57,60 @@
             }
         }
 
-        /* ===== PRESENTATION PANEL ===== */
+        /* ===== PRESENTATION ===== */
         .presentation-panel {
             text-align: center;
             padding: 4px 2px 8px;
         }
 
-        .presentation-panel .project-badge {
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .logo-section .logo-img {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 12px rgba(52, 152, 219, 0.55)) drop-shadow(0 0 28px rgba(41, 128, 185, 0.35));
+            transition: all 0.4s ease;
+        }
+
+        .logo-section .logo-img:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 18px rgba(52, 152, 219, 0.75)) drop-shadow(0 0 40px rgba(41, 128, 185, 0.5));
+        }
+
+        .logo-section .logo-text {
+            text-align: center;
+            line-height: 1.15;
+        }
+
+        .logo-section .logo-text .logo-title {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #3498db, #f5d77b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-section .logo-text .logo-sub {
+            font-size: 9px;
+            color: #8888aa;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        .project-badge {
             display: inline-block;
             background: rgba(46, 204, 113, 0.15);
             border: 1px solid rgba(46, 204, 113, 0.25);
@@ -89,7 +131,7 @@
             margin-bottom: 6px;
         }
 
-        .presentation-panel .sub-head {
+        .sub-head {
             font-size: 13px;
             color: #b0b0d0;
             margin-bottom: 14px;
@@ -97,7 +139,7 @@
             padding-bottom: 12px;
         }
 
-        .presentation-panel .project-desc {
+        .project-desc {
             background: rgba(0, 0, 0, 0.25);
             border-radius: 18px;
             padding: 16px 14px;
@@ -107,37 +149,37 @@
             line-height: 1.55;
         }
 
-        .presentation-panel .project-desc p {
+        .project-desc p {
             font-size: 13px;
             color: #d0d0ea;
             margin-bottom: 8px;
         }
 
-        .presentation-panel .project-desc .highlight {
+        .highlight {
             color: #f5d77b;
             font-weight: 500;
         }
 
-        .presentation-panel .presenter-card {
+        .presenter-card {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 16px;
             padding: 14px 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .presentation-panel .presenter-card .name {
+        .presenter-card .name {
             font-size: 16px;
             font-weight: 600;
             color: #f0e9b0;
         }
 
-        .presentation-panel .presenter-card .title {
+        .presenter-card .title {
             font-size: 12px;
             color: #9999bb;
             margin-top: 3px;
         }
 
-        .presentation-panel .presenter-card .badge-eng {
+        .presenter-card .badge-eng {
             display: inline-block;
             margin-top: 6px;
             background: rgba(52, 152, 219, 0.15);
@@ -147,31 +189,73 @@
             color: #7abae0;
         }
 
-        .presentation-panel .footer-note {
+        .contact-line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
             margin-top: 14px;
+            flex-wrap: wrap;
+            padding: 10px 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-line a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: #a8b8d8;
+            text-decoration: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(52, 152, 219, 0.08);
+            border: 1px solid rgba(52, 152, 219, 0.15);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .contact-line a:hover {
+            background: rgba(52, 152, 219, 0.18);
+            color: #7abae0;
+            border-color: rgba(52, 152, 219, 0.35);
+        }
+
+        .contact-line a:active {
+            transform: scale(0.96);
+        }
+
+        .contact-line .ico {
+            font-size: 12px;
+        }
+
+        .footer-note {
+            margin-top: 12px;
             font-size: 10px;
             color: #666688;
         }
 
-        /* ===== CONTROL PANEL ===== */
+        /* ===== CONTROL ===== */
         .control-panel {
             padding: 2px 0 6px;
         }
 
-        .control-panel .panel-header {
+        .panel-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
         }
 
-        .control-panel .panel-header h2 {
+        .panel-header h2 {
             font-size: 16px;
             font-weight: 400;
             color: #ddd;
         }
 
-        .control-panel .panel-header .lamp-indicator {
+        .lamp-indicator {
             font-size: 11px;
             background: rgba(255, 255, 255, 0.04);
             padding: 3px 10px;
@@ -179,117 +263,124 @@
             color: #aaa;
         }
 
-        /* ===== LAMPS : 2 COLONNES ===== */
         .lamps-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 0;
             margin-bottom: 10px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .lamp-wrapper {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 0, 0, 0.18);
-            border-radius: 20px;
-            padding: 10px 6px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px 8px 18px;
+            border: none;
+            width: 100%;
+            gap: 12px;
+            transition: all 0.5s ease;
             overflow: hidden;
+            min-height: 200px;
+        }
+
+        .lamp-wrapper+.lamp-wrapper {
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .lamp-wrapper.on {
+            background: radial-gradient(ellipse at center,
+                    #fffce0 0%,
+                    #ffe27a 40%,
+                    #ffcc33 70%,
+                    #ffaa00 100%);
+            box-shadow:
+                inset 0 0 40px rgba(255, 255, 200, 0.6),
+                0 0 30px rgba(255, 220, 80, 0.8),
+                0 0 60px rgba(255, 180, 0, 0.5);
+            animation: lampGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes lampGlow {
+
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                filter: brightness(1.08);
+            }
         }
 
         .lamp-label {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
             color: #ccc;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .bulb-container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .bulb {
-            position: relative;
-            width: 68px;
-            height: 68px;
-            background: #333344;
-            border-radius: 50% 50% 40% 40%;
-            box-shadow: 0 0 0 4px #2a2a3a, 0 6px 14px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
+            letter-spacing: 1.5px;
+            text-align: center;
             z-index: 2;
+            position: relative;
+            transition: all 0.5s ease;
         }
 
-        .bulkneck {
-            width: 24px;
-            height: 12px;
-            background: #2a2a3a;
-            margin: -4px auto 0;
-            border-radius: 0 0 6px 6px;
+        .lamp-wrapper.on .lamp-label {
+            color: #5a3a00;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .lamp-box {
+            position: relative;
+            width: 100%;
+            flex: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 1;
         }
 
-        .bulkbase {
-            width: 34px;
-            height: 11px;
-            background: linear-gradient(180deg, #3a3a50, #2a2a3a);
-            margin: 0 auto;
-            border-radius: 0 0 10px 10px;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .bulb.on {
-            background: #fff9e0;
-            box-shadow: 0 0 0 4px #3a3a50, 0 0 22px #ffdd44, 0 0 45px #ffaa00, 0 0 65px #ff8800;
-        }
-
-        .bulb.on::before {
+        .lamp-box::before {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 30px;
-            height: 30px;
-            background: radial-gradient(circle, #ffffff 0%, #ffeeaa 60%, transparent 100%);
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle,
+                    rgba(180, 180, 200, 0.4) 0%,
+                    rgba(120, 120, 140, 0.15) 60%,
+                    transparent 100%);
             border-radius: 50%;
-            opacity: 0.7;
+            transition: all 0.5s ease;
+            pointer-events: none;
         }
 
-        .filament {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 18px;
-            height: 18px;
-            border: 2px solid #666;
-            border-radius: 50%;
-            opacity: 0.3;
-        }
-
-        .bulb.on .filament {
-            border-color: #ff8800;
-            opacity: 0.6;
-            box-shadow: inset 0 0 8px #ff6600;
+        .lamp-wrapper.on .lamp-box::before {
+            width: 0;
+            height: 0;
+            opacity: 0;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 30px;
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 600;
-            margin-top: 8px;
             background: #2a2a3a;
             color: #aaa;
             transition: all 0.3s;
+            min-width: 74px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
         }
 
         .status-badge.on {
@@ -303,115 +394,117 @@
             color: white;
         }
 
-        /* ===== BLOC 4 BOUTONS MANUELS – UNE SEULE LIGNE ===== */
-        .manual-buttons-panel {
-            background: rgba(52, 152, 219, 0.08);
-            border: 1px solid rgba(52, 152, 219, 0.18);
-            backdrop-filter: blur(10px);
-            border-radius: 18px;
-            padding: 10px 8px;
-            margin-bottom: 10px;
+        .control-buttons {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            /* ← 4 boutons en une ligne */
-            gap: 6px;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin-bottom: 10px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .manual-buttons-panel .manual-title {
-            grid-column: 1 / -1;
-            text-align: center;
-            font-size: 9px;
-            letter-spacing: 2px;
-            color: #7abae0;
-            text-transform: uppercase;
-            padding-bottom: 6px;
-            border-bottom: 1px dashed rgba(122, 186, 224, 0.25);
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-
-        .manual-btn {
-            padding: 10px 4px;
+        .side-btn {
+            padding: 16px 8px;
             border: none;
-            border-radius: 11px;
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s;
             color: white;
-            background: linear-gradient(145deg, #3498db, #2471a3);
-            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
-            line-height: 1.1;
+            justify-content: center;
+            gap: 4px;
+            line-height: 1.2;
+            transition: all 0.2s;
+            min-height: 70px;
         }
 
-        .manual-btn:active {
+        .side-btn:active {
+            filter: brightness(0.85);
+        }
+
+        .side-btn .icon {
+            font-size: 20px;
+        }
+
+        .side-btn .lbl {
+            font-size: 9px;
+            font-weight: 400;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-individual {
+            background: linear-gradient(145deg, #1f618d, #154360);
+            border-radius: 14px 0 0 14px;
+        }
+
+        .btn-simultaneous {
+            background: linear-gradient(145deg, #1f618d, #154360);
+            border-radius: 0 14px 14px 0;
+        }
+
+        .individual-panel {
+            display: none;
+            background: rgba(31, 97, 141, 0.15);
+            border: 1px solid rgba(31, 97, 141, 0.35);
+            border-radius: 14px;
+            padding: 10px;
+            margin-bottom: 10px;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 5px;
+        }
+
+        .individual-panel.show {
+            display: grid;
+        }
+
+        .simultaneous-panel {
+            display: none;
+            background: rgba(31, 97, 141, 0.15);
+            border: 1px solid rgba(31, 97, 141, 0.35);
+            border-radius: 14px;
+            padding: 10px;
+            margin-bottom: 10px;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+
+        .simultaneous-panel.show {
+            display: grid;
+        }
+
+        .mini-btn {
+            padding: 10px 4px;
+            border: none;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(145deg, #1f618d, #154360);
+            box-shadow: 0 3px 8px rgba(31, 97, 141, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .mini-btn.off {
+            background: linear-gradient(145deg, #2874a6, #1a5276);
+        }
+
+        .mini-btn.dark {
+            background: linear-gradient(145deg, #154360, #0e2f44);
+        }
+
+        .mini-btn:active {
             transform: scale(0.94);
         }
 
-        .manual-btn.off {
-            background: linear-gradient(145deg, #5dade2, #2e86c1);
-            box-shadow: 0 3px 10px rgba(93, 173, 226, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        }
-
-        .manual-btn .lbl {
-            display: block;
-            font-size: 8px;
-            font-weight: 400;
-            opacity: 0.9;
-            letter-spacing: 1px;
-        }
-
-        /* ===== GLOBAL CONTROLS (même modèle, bleu foncé) ===== */
-        .global-controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            margin: 10px 0 8px;
-        }
-
-        .global-btn {
-            padding: 10px 6px;
-            border: none;
-            border-radius: 11px;
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: white;
-            background: linear-gradient(145deg, #1f618d, #154360);
-            /* bleu foncé */
-            box-shadow: 0 3px 10px rgba(21, 67, 96, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            line-height: 1.1;
-        }
-
-        .global-btn .lbl {
-            display: block;
-            font-size: 8px;
-            font-weight: 400;
-            opacity: 0.9;
-            letter-spacing: 1px;
-        }
-
-        .global-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* ===== MIC ===== */
         .mic-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 2px 0;
         }
 
         .mic-button {
@@ -488,11 +581,6 @@
             cursor: pointer;
         }
 
-        .test-voice-btn:active {
-            background: #8e44ad;
-            transform: scale(0.97);
-        }
-
         .commands {
             margin-top: 10px;
             display: flex;
@@ -543,7 +631,6 @@
             background: #e74c3c;
         }
 
-        /* ===== SIDE TOGGLE BLEU ===== */
         .side-toggle {
             display: flex;
             justify-content: center;
@@ -552,8 +639,8 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .side-toggle .toggle-btn {
-            background: linear-gradient(145deg, #3498db, #2471a3);
+        .toggle-btn {
+            background: linear-gradient(145deg, #1f618d, #154360);
             border: 1px solid rgba(255, 255, 255, 0.12);
             color: white;
             padding: 9px 22px;
@@ -561,98 +648,23 @@
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.25s;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 5px 14px rgba(52, 152, 219, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            box-shadow: 0 5px 14px rgba(31, 97, 141, 0.5);
         }
 
-        .side-toggle .toggle-btn:active {
+        .toggle-btn:active {
             transform: scale(0.96);
         }
 
-        .side-toggle .toggle-btn .icon-arrow {
-            display: inline-block;
+        .icon-arrow {
             transition: transform 0.3s;
             font-size: 13px;
         }
 
-        .side-toggle .toggle-btn .icon-arrow.flip {
+        .icon-arrow.flip {
             transform: rotate(180deg);
-        }
-
-        /* ===== RESPONSIVE – SMARTPHONE ===== */
-        @media (max-width: 420px) {
-            .app-wrapper {
-                padding: 12px 10px 14px;
-                border-radius: 24px;
-            }
-
-            .presentation-panel h1 {
-                font-size: 20px;
-            }
-
-            .bulb {
-                width: 60px;
-                height: 60px;
-            }
-
-            .bulkneck {
-                width: 20px;
-                height: 10px;
-            }
-
-            .bulkbase {
-                width: 28px;
-                height: 9px;
-            }
-
-            .mic-button {
-                width: 60px;
-                height: 60px;
-            }
-
-            .mic-icon {
-                font-size: 20px;
-            }
-
-            .manual-btn {
-                font-size: 9px;
-                padding: 8px 3px;
-            }
-
-            .manual-btn .lbl {
-                font-size: 7px;
-            }
-
-            .global-btn {
-                font-size: 9px;
-                padding: 8px 4px;
-            }
-
-            .global-btn .lbl {
-                font-size: 7px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .bulb {
-                width: 52px;
-                height: 52px;
-            }
-
-            .lamp-label {
-                font-size: 10px;
-            }
-
-            .manual-btn {
-                font-size: 8px;
-            }
-
-            .global-btn {
-                font-size: 8px;
-            }
         }
     </style>
 </head>
@@ -661,10 +673,21 @@
 
     <div class="app-wrapper">
 
-        <!-- ========================================= -->
-        <!-- PANEL 1 : PRESENTATION                    -->
-        <!-- ========================================= -->
+        <!-- ===================================================== -->
+        <!-- PANEL 1 : PRESENTATION                                -->
+        <!-- ===================================================== -->
         <div class="panel presentation-panel active" id="presentationPanel">
+
+            <!-- ✅ LOGO SOLED -->
+            <div class="logo-section">
+                <img class="logo-img" src="image/mon-logo.png"
+                    alt="SOLED - Solution Électronique pour le Développement" />
+                <div class="logo-text">
+                    <div class="logo-title">SOLED</div>
+                    <div class="logo-sub">Solution Électronique pour le Développement</div>
+                </div>
+            </div>
+
             <div class="project-badge">⚡ Électronique Embarquée · IoT</div>
             <h1>Lampes Jumelles<br />à Commande Vocale</h1>
             <div class="sub-head">Éclairage mains libres · Sync Firebase temps réel</div>
@@ -673,13 +696,10 @@
                 <p>
                     <span class="highlight">Ce projet</span> fait partie de la formation pratique en
                     <span class="highlight">électronique programmée</span> dans les écoles techniques.
-                    Il démontre comment la reconnaissance vocale, la synchronisation cloud et la
-                    logique embarquée peuvent être combinées pour créer un système de contrôle intuitif.
                 </p>
                 <p style="font-size:13px; color:#b8b8d8;">
-                    Deux lampes sont pilotées par commande vocale, boutons tactiles,
-                    ou en cliquant directement sur les ampoules. L'état est partagé en
-                    temps réel via Firebase.
+                    Deux lampes pilotées par voix, boutons ou clic direct sur les ampoules.
+                    État partagé en temps réel via Firebase.
                 </p>
             </div>
 
@@ -689,12 +709,21 @@
                 <div class="badge-eng">🔧 M.Eng. · Systèmes Embarqués</div>
             </div>
 
-            <div class="footer-note">— Conçu pour l'apprentissage pratique en éducation technique —</div>
+            <div class="contact-line">
+                <a href="mailto:johndiams@gmail.com">
+                    <span class="ico">📧</span> johndiams@gmail.com
+                </a>
+                <a href="tel:+243808838305">
+                    <span class="ico">📞</span> +243 808 838 305
+                </a>
+            </div>
+
+            <div class="footer-note">— Apprentissage pratique en éducation technique —</div>
         </div>
 
-        <!-- ========================================= -->
-        <!-- PANEL 2 : CONTROL INTERFACE               -->
-        <!-- ========================================= -->
+        <!-- ===================================================== -->
+        <!-- PANEL 2 : CONTROL                                     -->
+        <!-- ===================================================== -->
         <div class="panel control-panel" id="controlPanel">
 
             <div class="panel-header">
@@ -702,65 +731,44 @@
                 <span class="lamp-indicator">🎤 vocal prêt</span>
             </div>
 
-            <!-- ===== LAMPS : 2 COLONNES ===== -->
             <div class="lamps-container">
-
-                <!-- Lampe 1 -->
-                <div class="lamp-wrapper">
+                <div class="lamp-wrapper" id="lampWrap1">
                     <div class="lamp-label">LAMPE 1</div>
-                    <div class="bulb-container">
-                        <div class="bulb" id="bulb1">
-                            <div class="filament"></div>
-                        </div>
-                        <div class="bulkneck"></div>
-                        <div class="bulkbase"></div>
-                    </div>
+                    <div class="lamp-box" id="bulb1"></div>
                     <div class="status-badge off" id="statusBadge1">⚫ ÉTEINT</div>
                 </div>
-
-                <!-- Lampe 2 -->
-                <div class="lamp-wrapper">
+                <div class="lamp-wrapper" id="lampWrap2">
                     <div class="lamp-label">LAMPE 2</div>
-                    <div class="bulb-container">
-                        <div class="bulb" id="bulb2">
-                            <div class="filament"></div>
-                        </div>
-                        <div class="bulkneck"></div>
-                        <div class="bulkbase"></div>
-                    </div>
+                    <div class="lamp-box" id="bulb2"></div>
                     <div class="status-badge off" id="statusBadge2">⚫ ÉTEINT</div>
                 </div>
             </div>
 
-            <!-- ===== BLOC 4 BOUTONS MANUELS – UNE LIGNE ===== -->
-            <div class="manual-buttons-panel">
-                <div class="manual-title">◈ COMMANDE MANUELLE ◈</div>
-
-                <button class="manual-btn" id="manualOn1">
-                    L1 <span class="lbl">ON</span>
+            <div class="control-buttons">
+                <button class="side-btn btn-individual" id="individualBtn">
+                    <span class="icon">🎯</span>
+                    LAMPE 1 / 2
+                    <span class="lbl">COMMANDE INDIVIDUELLE</span>
                 </button>
-                <button class="manual-btn off" id="manualOff1">
-                    L1 <span class="lbl">OFF</span>
-                </button>
-                <button class="manual-btn" id="manualOn2">
-                    L2 <span class="lbl">ON</span>
-                </button>
-                <button class="manual-btn off" id="manualOff2">
-                    L2 <span class="lbl">OFF</span>
+                <button class="side-btn btn-simultaneous" id="simultaneousBtn">
+                    <span class="icon">⚡</span>
+                    LES DEUX
+                    <span class="lbl">COMMANDE SIMULTANÉE</span>
                 </button>
             </div>
 
-            <!-- ===== GLOBAL CONTROLS (même modèle, bleu foncé) ===== -->
-            <div class="global-controls">
-                <button class="global-btn" id="allOnBtn">
-                    🌟 TOUT <span class="lbl">ALLUMER</span>
-                </button>
-                <button class="global-btn" id="allOffBtn">
-                    🌙 TOUT <span class="lbl">ÉTEINDRE</span>
-                </button>
+            <div class="individual-panel" id="individualPanel">
+                <button class="mini-btn" id="manualOn1">ON1</button>
+                <button class="mini-btn off" id="manualOff1">OFF1</button>
+                <button class="mini-btn" id="manualOn2">ON2</button>
+                <button class="mini-btn off" id="manualOff2">OFF2</button>
             </div>
 
-            <!-- ===== MIC ===== -->
+            <div class="simultaneous-panel" id="simultaneousPanel">
+                <button class="mini-btn dark" id="allOnBtn">🌟 TOUT ALLUMER</button>
+                <button class="mini-btn dark" id="allOffBtn">🌙 TOUT ÉTEINDRE</button>
+            </div>
+
             <div class="mic-section">
                 <button class="mic-button" id="micBtn">
                     <span class="mic-icon">🎤</span>
@@ -772,7 +780,6 @@
 
             <div class="voice-status" id="voiceStatus">🎤 Appuyez sur le micro et parlez</div>
 
-            <!-- ===== COMMANDES EXEMPLES ===== -->
             <div class="commands">
                 <span class="cmd">"Allume la lampe 1"</span>
                 <span class="cmd">"Éteins la lampe 2"</span>
@@ -781,14 +788,12 @@
                 <span class="cmd">"Les deux"</span>
             </div>
 
-            <!-- ===== FIREBASE STATUS ===== -->
             <div class="firebase-indicator" id="firebaseStatus">
                 <span class="dot" id="fbDot"></span>
                 <span id="fbText">Connexion Firebase...</span>
             </div>
         </div>
 
-        <!-- ===== SIDE TOGGLE (BLEU) ===== -->
         <div class="side-toggle">
             <button class="toggle-btn" id="togglePanelBtn">
                 <span class="icon-arrow" id="arrowIcon">▶</span>
@@ -798,23 +803,19 @@
 
     </div>
 
-    <!-- ===== FIREBASE SDK ===== -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // ===================================================
-        // PANEL TOGGLE
-        // ===================================================
+        // ===== PANEL TOGGLE =====
         const presentationPanel = document.getElementById('presentationPanel');
         const controlPanel = document.getElementById('controlPanel');
         const toggleBtn = document.getElementById('togglePanelBtn');
         const toggleLabel = document.getElementById('toggleLabel');
         const arrowIcon = document.getElementById('arrowIcon');
-
         let isPresentationVisible = true;
 
-        function togglePanels() {
+        toggleBtn.addEventListener('click', () => {
             isPresentationVisible = !isPresentationVisible;
             if (isPresentationVisible) {
                 presentationPanel.classList.add('active');
@@ -829,12 +830,24 @@
                 arrowIcon.textContent = '◀';
                 arrowIcon.classList.add('flip');
             }
-        }
-        toggleBtn.addEventListener('click', togglePanels);
+        });
 
-        // ===================================================
-        // FIREBASE CONFIG
-        // ===================================================
+        // ===== SOUS-PANNEAUX =====
+        const individualBtn = document.getElementById('individualBtn');
+        const simultaneousBtn = document.getElementById('simultaneousBtn');
+        const individualPanel = document.getElementById('individualPanel');
+        const simultaneousPanel = document.getElementById('simultaneousPanel');
+
+        individualBtn.addEventListener('click', () => {
+            individualPanel.classList.toggle('show');
+            simultaneousPanel.classList.remove('show');
+        });
+        simultaneousBtn.addEventListener('click', () => {
+            simultaneousPanel.classList.toggle('show');
+            individualPanel.classList.remove('show');
+        });
+
+        // ===== FIREBASE =====
         const firebaseConfig = {
             apiKey: "AIzaSyDajKpkXt7OZqMvk3beboRhlJjthYkzETs",
             authDomain: "commande-vocale-9849f.firebaseapp.com",
@@ -848,10 +861,10 @@
         let database = null;
         let firebaseReady = false;
         let currentLampStates = { 1: 0, 2: 0 };
-        let voixDisponibles = [];
-        let voixSelectionnee = null;
-        let synthVocaleActive = false;
+        let voixDisponibles = [], voixSelectionnee = null, synthVocaleActive = false;
 
+        const lampWrap1 = document.getElementById('lampWrap1');
+        const lampWrap2 = document.getElementById('lampWrap2');
         const bulb1 = document.getElementById('bulb1');
         const bulb2 = document.getElementById('bulb2');
         const statusBadge1 = document.getElementById('statusBadge1');
@@ -868,104 +881,83 @@
         const fbDot = document.getElementById('fbDot');
         const fbText = document.getElementById('fbText');
 
-        // ===================================================
-        // SYNTHESE VOCALE (FRANÇAIS)
-        // ===================================================
-        function initialiserSyntheseVocale() {
+        // ===== VOIX =====
+        function initVoix() {
             if ('speechSynthesis' in window) {
                 voixDisponibles = window.speechSynthesis.getVoices();
                 if (voixDisponibles.length === 0) {
                     window.speechSynthesis.onvoiceschanged = () => {
                         voixDisponibles = window.speechSynthesis.getVoices();
-                        choisirVoixFrancaise();
+                        choisirVoixFr();
                     };
-                } else {
-                    choisirVoixFrancaise();
-                }
+                } else choisirVoixFr();
                 synthVocaleActive = true;
             }
         }
-
-        function choisirVoixFrancaise() {
-            // On cherche en priorité une voix française
-            const priorites = ['Google français', 'Microsoft Hortense', 'Amélie', 'Thomas', 'Audrey', 'fr-FR'];
-            for (let pref of priorites) {
-                const voix = voixDisponibles.find(v => v.name.includes(pref) || v.lang === 'fr-FR' || v.lang.startsWith('fr'));
-                if (voix) { voixSelectionnee = voix; return; }
+        function choisirVoixFr() {
+            const prefs = ['Google français', 'Microsoft Hortense', 'Amélie', 'Thomas', 'Audrey', 'fr-FR'];
+            for (let p of prefs) {
+                const v = voixDisponibles.find(x => x.name.includes(p) || x.lang === 'fr-FR' || x.lang.startsWith('fr'));
+                if (v) { voixSelectionnee = v; return; }
             }
-            // fallback : première voix dispo
             voixSelectionnee = voixDisponibles[0];
         }
-
-        function parler(texte) {
+        function parler(t) {
             if (!synthVocaleActive) return;
             window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(texte);
-            utterance.lang = 'fr-FR';
-            utterance.pitch = 1.2;
-            utterance.rate = 0.95;
-            utterance.volume = 1;
-            if (voixSelectionnee) utterance.voice = voixSelectionnee;
-            utterance.onstart = () => { voiceStatus.innerHTML = `🗣️ "${texte}"`; };
-            window.speechSynthesis.speak(utterance);
+            const u = new SpeechSynthesisUtterance(t);
+            u.lang = 'fr-FR'; u.pitch = 1.2; u.rate = 0.95; u.volume = 1;
+            if (voixSelectionnee) u.voice = voixSelectionnee;
+            u.onstart = () => { voiceStatus.innerHTML = `🗣️ "${t}"`; };
+            window.speechSynthesis.speak(u);
         }
 
-        // ===================================================
-        // VISUAL UPDATE
-        // ===================================================
-        function updateBulbVisual(lampId, etat) {
-            currentLampStates[lampId] = etat;
-            const bulb = lampId === 1 ? bulb1 : bulb2;
-            const badge = lampId === 1 ? statusBadge1 : statusBadge2;
+        // ===== VISUEL =====
+        function updateBulbVisual(id, etat) {
+            currentLampStates[id] = etat;
+            const wrap = id === 1 ? lampWrap1 : lampWrap2;
+            const badge = id === 1 ? statusBadge1 : statusBadge2;
             if (etat === 1) {
-                bulb.classList.add('on');
+                wrap.classList.add('on');
                 badge.className = 'status-badge on';
                 badge.innerHTML = '💡 ALLUMÉ';
             } else {
-                bulb.classList.remove('on');
+                wrap.classList.remove('on');
                 badge.className = 'status-badge off';
                 badge.innerHTML = '⚫ ÉTEINT';
             }
         }
 
-        // ===================================================
-        // SEND TO FIREBASE + FEEDBACK
-        // ===================================================
+        // ===== ENVOI =====
         function sendToFirebase(lampId, etat) {
-            if (lampId === 'all') {
-                updateBulbVisual(1, etat);
-                updateBulbVisual(2, etat);
-            } else {
-                updateBulbVisual(lampId, etat);
-            }
+            if (lampId === 'all') { updateBulbVisual(1, etat); updateBulbVisual(2, etat); }
+            else updateBulbVisual(lampId, etat);
 
-            let message = '';
+            let msg;
             if (lampId === 'all') {
-                message = etat === 1 ? 'Toutes les lampes sont allumées' : 'Toutes les lampes sont éteintes';
-                voiceStatus.innerHTML = etat === 1 ? '✅ Toutes les lampes ALLUMÉES' : '✅ Toutes les lampes ÉTEINTES';
+                msg = etat === 1 ? 'Toutes les lampes sont allumées' : 'Toutes les lampes sont éteintes';
+                voiceStatus.innerHTML = etat === 1 ? '✅ Toutes ALLUMÉES' : '✅ Toutes ÉTEINTES';
             } else {
-                message = etat === 1 ? `Lampe ${lampId} allumée` : `Lampe ${lampId} éteinte`;
+                msg = etat === 1 ? `Lampe ${lampId} allumée` : `Lampe ${lampId} éteinte`;
                 voiceStatus.innerHTML = etat === 1 ? `✅ Lampe ${lampId} ALLUMÉE` : `✅ Lampe ${lampId} ÉTEINTE`;
             }
-            parler(message);
+            parler(msg);
 
             if (firebaseReady && database) {
                 const path = lampId === 'all' ? 'lampes' : `lampes/lampe${lampId}`;
                 const data = lampId === 'all'
                     ? { lampe1: { etat: etat }, lampe2: { etat: etat } }
                     : { etat: etat };
-                database.ref(path).set(data).catch((error) => {
-                    voiceStatus.innerHTML = `❌ Erreur Firebase: ${error.message}`;
-                    parler("Désolé, une erreur est survenue");
+                database.ref(path).set(data).catch(err => {
+                    voiceStatus.innerHTML = `❌ Firebase: ${err.message}`;
+                    parler("Une erreur est survenue");
                 });
             } else {
-                voiceStatus.innerHTML = '⚠️ Mode démo (Firebase non connecté)';
+                voiceStatus.innerHTML = '⚠️ Mode démo';
             }
         }
 
-        // ===================================================
-        // FIREBASE INIT
-        // ===================================================
+        // ===== FIREBASE INIT =====
         try {
             firebase.initializeApp(firebaseConfig);
             database = firebase.database();
@@ -973,44 +965,24 @@
             fbDot.className = 'dot connected';
             fbText.textContent = 'Firebase connecté';
 
-            database.ref('lampes').once('value', (snapshot) => {
-                if (!snapshot.exists()) {
-                    database.ref('lampes').set({ lampe1: { etat: 0 }, lampe2: { etat: 0 } });
-                }
+            database.ref('lampes').once('value', s => {
+                if (!s.exists()) database.ref('lampes').set({ lampe1: { etat: 0 }, lampe2: { etat: 0 } });
             });
-
-            database.ref('lampes/lampe1/etat').on('value', (snapshot) => {
-                const etat = snapshot.val();
-                if (etat !== null) updateBulbVisual(1, etat);
+            database.ref('lampes/lampe1/etat').on('value', s => { const v = s.val(); if (v !== null) updateBulbVisual(1, v); });
+            database.ref('lampes/lampe2/etat').on('value', s => { const v = s.val(); if (v !== null) updateBulbVisual(2, v); });
+            database.ref('.info/connected').on('value', s => {
+                if (s.val() === true) { fbDot.className = 'dot connected'; fbText.textContent = 'Firebase connecté'; }
+                else { fbDot.className = 'dot disconnected'; fbText.textContent = 'Firebase déconnecté'; }
             });
-
-            database.ref('lampes/lampe2/etat').on('value', (snapshot) => {
-                const etat = snapshot.val();
-                if (etat !== null) updateBulbVisual(2, etat);
-            });
-
-            database.ref('.info/connected').on('value', (snap) => {
-                if (snap.val() === true) {
-                    fbDot.className = 'dot connected';
-                    fbText.textContent = 'Firebase connecté';
-                } else {
-                    fbDot.className = 'dot disconnected';
-                    fbText.textContent = 'Firebase déconnecté';
-                }
-            });
-        } catch (error) {
+        } catch (e) {
             firebaseReady = false;
             fbDot.className = 'dot disconnected';
             fbText.textContent = 'Mode démo';
         }
 
-        // ===================================================
-        // SPEECH RECOGNITION (FRANÇAIS)
-        // ===================================================
-        let recognition = null;
-        let isListening = false;
-
-        function initSpeechRecognition() {
+        // ===== RECONNAISSANCE VOCALE =====
+        let recognition = null, isListening = false;
+        function initReco() {
             if ('webkitSpeechRecognition' in window) recognition = new webkitSpeechRecognition();
             else if ('SpeechRecognition' in window) recognition = new SpeechRecognition();
             else return false;
@@ -1023,67 +995,56 @@
                 isListening = true;
                 micBtn.classList.add('listening');
                 micBtn.innerHTML = '<span class="mic-icon">🎙️</span><span>Écoute...</span>';
-                voiceStatus.innerHTML = '🎤 Écoute en cours... Parlez maintenant !';
+                voiceStatus.innerHTML = '🎤 Écoute... Parlez !';
             };
-
             recognition.onend = () => {
                 isListening = false;
                 micBtn.classList.remove('listening');
                 micBtn.innerHTML = '<span class="mic-icon">🎤</span><span>Parler</span>';
             };
-
-            recognition.onerror = (event) => {
+            recognition.onerror = (e) => {
                 isListening = false;
                 micBtn.classList.remove('listening');
                 micBtn.innerHTML = '<span class="mic-icon">🎤</span><span>Parler</span>';
-                voiceStatus.innerHTML = `❌ Erreur: ${event.error}`;
+                voiceStatus.innerHTML = `❌ Erreur: ${e.error}`;
             };
-
             recognition.onresult = (event) => {
-                const parole = event.results[0][0].transcript.toLowerCase().trim();
-                voiceStatus.innerHTML = `🗣️ Vous avez dit : "${parole}"`;
+                const p = event.results[0][0].transcript.toLowerCase().trim();
+                voiceStatus.innerHTML = `🗣️ Vous avez dit : "${p}"`;
 
-                // Commandes en français
-                const allumerMatch = parole.match(/allume|allumer|allumé|allumez|active|activé|éclaire|éclairer|ouvre|ouvrir/i);
-                const eteindreMatch = parole.match(/éteins|eteins|éteint|eteint|éteindre|eteindre|arrête|arrêter|désactive|désactiver|stop|ferme|fermer/i);
-                const lampe1Match = parole.match(/lampe\s*1|première\s*lampe|premiere\s*lampe|la\s*une|\b1\b|un\b/i);
-                const lampe2Match = parole.match(/lampe\s*2|deuxième\s*lampe|deuxieme\s*lampe|la\s*deux|\b2\b|deux\b/i);
-                const toutMatch = parole.match(/tout|toutes|les deux|les\s*2|ensemble|partout|global/i);
+                const on = p.match(/allume|allumer|allumé|allumez|active|éclaire|ouvre|on/i);
+                const off = p.match(/éteins|eteins|éteint|éteindre|arrête|désactive|stop|ferme|off/i);
+                const l1 = p.match(/lampe\s*1|première\s*lampe|la\s*une|\b1\b|un\b/i);
+                const l2 = p.match(/lampe\s*2|deuxième\s*lampe|la\s*deux|\b2\b|deux\b/i);
+                const all = p.match(/tout|toutes|les deux|les\s*2|ensemble|global/i);
 
-                if (!allumerMatch && !eteindreMatch) {
-                    voiceStatus.innerHTML = `❓ Commande non reconnue : "${parole}"`;
-                    parler("Je n'ai pas compris. Essayez : allume la lampe 1 ou éteins tout");
+                if (!on && !off) {
+                    voiceStatus.innerHTML = `❓ Non reconnu : "${p}"`;
+                    parler("Je n'ai pas compris. Dites : allume la lampe 1 ou éteins tout");
                     return;
                 }
+                const action = on ? 1 : 0;
+                const verbe = action ? 'allumer' : 'éteindre';
 
-                const action = allumerMatch ? 1 : 0;
-                const verbe = action === 1 ? 'allumer' : 'éteindre';
-
-                if (toutMatch || (lampe1Match && lampe2Match)) {
-                    sendToFirebase('all', action);
-                } else if (lampe1Match && !lampe2Match) {
-                    sendToFirebase(1, action);
-                } else if (lampe2Match && !lampe1Match) {
-                    sendToFirebase(2, action);
-                } else {
-                    voiceStatus.innerHTML = `❓ Quelle lampe ${verbe} ? Dites 1, 2 ou les deux.`;
-                    parler(`Quelle lampe ${verbe} ? La lampe 1, la lampe 2, ou les deux ?`);
+                if (all || (l1 && l2)) sendToFirebase('all', action);
+                else if (l1 && !l2) sendToFirebase(1, action);
+                else if (l2 && !l1) sendToFirebase(2, action);
+                else {
+                    voiceStatus.innerHTML = `❓ Quelle lampe ${verbe} ?`;
+                    parler(`Quelle lampe ${verbe} ? La 1, la 2, ou les deux ?`);
                 }
             };
             return true;
         }
 
-        // ===================================================
-        // EVENTS
-        // ===================================================
-        initialiserSyntheseVocale();
+        // ===== EVENTS =====
+        initVoix();
 
         testVoiceBtn.addEventListener('click', () => {
             parler("Bonjour, je fonctionne correctement. Je peux contrôler deux lampes par la voix.");
         });
-
         micBtn.addEventListener('click', () => {
-            if (!initSpeechRecognition()) {
+            if (!initReco()) {
                 voiceStatus.innerHTML = '❌ Navigateur non supporté. Utilisez Chrome.';
                 return;
             }
@@ -1097,20 +1058,13 @@
         manualOff2.addEventListener('click', () => sendToFirebase(2, 0));
         allOnBtn.addEventListener('click', () => sendToFirebase('all', 1));
         allOffBtn.addEventListener('click', () => sendToFirebase('all', 0));
+        bulb1.addEventListener('click', () => sendToFirebase(1, currentLampStates[1] ? 0 : 1));
+        bulb2.addEventListener('click', () => sendToFirebase(2, currentLampStates[2] ? 0 : 1));
 
-        bulb1.addEventListener('click', () => sendToFirebase(1, currentLampStates[1] === 1 ? 0 : 1));
-        bulb2.addEventListener('click', () => sendToFirebase(2, currentLampStates[2] === 1 ? 0 : 1));
-
-        // Init visuel
         updateBulbVisual(1, 0);
         updateBulbVisual(2, 0);
-        voiceStatus.innerHTML = '✅ Prêt. Contrôlez les deux lampes !';
-
-        setTimeout(() => {
-            if (synthVocaleActive) {
-                parler("Bonjour, je contrôle deux lampes. Dites allume la lampe 1, éteins la lampe 2, ou tout allumer.");
-            }
-        }, 1800);
+        voiceStatus.innerHTML = '✅ Prêt !';
+        setTimeout(() => { if (synthVocaleActive) parler("Bonjour, je contrôle deux lampes."); }, 1800);
     </script>
 
 </body>
