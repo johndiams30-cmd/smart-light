@@ -63,7 +63,7 @@
             }
         }
 
-        /* ===== PRESENTATION PANEL (ENGLISH) ===== */
+        /* ===== PRESENTATION PANEL ===== */
         .presentation-panel {
             text-align: center;
             padding: 8px 4px 12px;
@@ -159,7 +159,7 @@
             letter-spacing: 0.3px;
         }
 
-        /* ===== CONTROL PANEL (lamps interface) ===== */
+        /* ===== CONTROL PANEL ===== */
         .control-panel {
             padding: 4px 0 8px;
         }
@@ -168,7 +168,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 6px;
+            margin-bottom: 14px;
         }
 
         .control-panel .panel-header h2 {
@@ -186,42 +186,38 @@
             color: #aaa;
         }
 
-        /* ===== LAMPS ===== */
+        /* ===== LAMPS EN 2 COLONNES VERTICALES ===== */
         .lamps-container {
-            display: flex;
-            flex-direction: column;
-            gap: 22px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
             margin-bottom: 16px;
-        }
-
-        @media (min-width: 500px) {
-            .lamps-container {
-                flex-direction: row;
-                gap: 12px;
-            }
         }
 
         .lamp-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 28px;
-            padding: 14px 8px;
-            flex: 1;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.18);
+            border-radius: 26px;
+            padding: 16px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            aspect-ratio: 0.85 / 1;
+            /* carré vertical */
+            min-height: 220px;
         }
 
         .lamp-label {
-            font-size: 17px;
+            font-size: 14px;
             font-weight: 600;
             color: #ccc;
-            margin-bottom: 2px;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
         }
 
         .bulb-container {
             position: relative;
-            width: 100%;
-            min-height: 170px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -229,8 +225,8 @@
 
         .bulb {
             position: relative;
-            width: 120px;
-            height: 120px;
+            width: 92px;
+            height: 92px;
             background: #333344;
             border-radius: 50% 50% 40% 40%;
             box-shadow: 0 0 0 5px #2a2a3a, 0 8px 20px rgba(0, 0, 0, 0.5);
@@ -241,14 +237,14 @@
 
         @media (min-width: 400px) {
             .bulb {
-                width: 140px;
-                height: 140px;
+                width: 104px;
+                height: 104px;
             }
         }
 
         .bulkneck {
-            width: 36px;
-            height: 20px;
+            width: 32px;
+            height: 16px;
             background: #2a2a3a;
             margin: -4px auto 0;
             border-radius: 0 0 8px 8px;
@@ -256,8 +252,8 @@
         }
 
         .bulkbase {
-            width: 48px;
-            height: 16px;
+            width: 44px;
+            height: 14px;
             background: linear-gradient(180deg, #3a3a50, #2a2a3a);
             margin: 0 auto;
             border-radius: 0 0 12px 12px;
@@ -266,7 +262,7 @@
 
         .bulb.on {
             background: #fff9e0;
-            box-shadow: 0 0 0 5px #3a3a50, 0 0 30px #ffdd44, 0 0 60px #ffaa00, 0 0 90px #ff8800, 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 0 5px #3a3a50, 0 0 30px #ffdd44, 0 0 60px #ffaa00, 0 0 90px #ff8800;
         }
 
         .bulb.on::before {
@@ -275,21 +271,11 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
             background: radial-gradient(circle, #ffffff 0%, #ffeeaa 60%, transparent 100%);
             border-radius: 50%;
             opacity: 0.7;
-        }
-
-        .bulb.on::after {
-            content: '💡';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 36px;
-            opacity: 0.25;
         }
 
         .filament {
@@ -297,8 +283,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             border: 2px solid #666;
             border-radius: 50%;
             opacity: 0.3;
@@ -314,9 +300,9 @@
             display: inline-block;
             padding: 4px 14px;
             border-radius: 30px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            margin: 8px 0 6px;
+            margin-top: 12px;
             background: #2a2a3a;
             color: #aaa;
             transition: all 0.3s;
@@ -333,48 +319,75 @@
             color: white;
         }
 
-        .lamp-controls {
-            display: flex;
-            gap: 6px;
-            margin-top: 4px;
-            flex-wrap: wrap;
-            justify-content: center;
+        /* ===== BLOC 4 BOUTONS MANUELS BLEUS – 3 LIGNES FLOUES ===== */
+        .manual-buttons-panel {
+            background: rgba(52, 152, 219, 0.08);
+            border: 1px solid rgba(52, 152, 219, 0.18);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 14px;
+            margin-bottom: 14px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 10px;
         }
 
-        .lamp-btn {
-            padding: 6px 14px;
-            border: none;
-            border-radius: 30px;
-            font-size: 12px;
+        .manual-buttons-panel .manual-title {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #7abae0;
+            text-transform: uppercase;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed rgba(122, 186, 224, 0.25);
+            margin-bottom: 2px;
             font-weight: 600;
+        }
+
+        .manual-btn {
+            padding: 12px 8px;
+            border: none;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            min-width: 80px;
-        }
-
-        .btn-on {
-            background: #2ecc71;
             color: white;
-            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.25);
+            background: linear-gradient(145deg, #3498db, #2471a3);
+            box-shadow: 0 4px 14px rgba(52, 152, 219, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            letter-spacing: 0.3px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
         }
 
-        .btn-off {
-            background: #e74c3c;
-            color: white;
-            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.25);
-        }
-
-        .btn-on:active,
-        .btn-off:active {
+        .manual-btn:active {
             transform: scale(0.95);
         }
 
+        .manual-btn.off {
+            background: linear-gradient(145deg, #5dade2, #2e86c1);
+            box-shadow: 0 4px 14px rgba(93, 173, 226, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .manual-btn .lbl {
+            display: block;
+            font-size: 9px;
+            font-weight: 400;
+            opacity: 0.85;
+            letter-spacing: 1.5px;
+        }
+
+        /* ===== GLOBAL CONTROLS ===== */
         .global-controls {
             display: flex;
             gap: 8px;
             justify-content: center;
-            margin: 12px 0 8px;
+            margin: 10px 0 8px;
             flex-wrap: wrap;
         }
 
@@ -388,10 +401,25 @@
             transition: all 0.2s;
             border: 1px solid rgba(255, 255, 255, 0.08);
             flex: 1 1 120px;
-            max-width: 160px;
+            max-width: 180px;
+            color: white;
         }
 
-        /* ===== MIC & VOICE ===== */
+        .global-btn.btn-on {
+            background: #2ecc71;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.25);
+        }
+
+        .global-btn.btn-off {
+            background: #e74c3c;
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.25);
+        }
+
+        .global-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* ===== MIC ===== */
         .mic-section {
             display: flex;
             flex-direction: column;
@@ -400,13 +428,13 @@
         }
 
         .mic-button {
-            width: 80px;
-            height: 80px;
+            width: 78px;
+            height: 78px;
             border-radius: 50%;
-            border: none;
+            border: 2px solid rgba(255, 255, 255, 0.15);
             background: linear-gradient(145deg, #e74c3c, #c0392b);
             color: white;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
@@ -417,7 +445,6 @@
             align-items: center;
             justify-content: center;
             gap: 2px;
-            border: 2px solid rgba(255, 255, 255, 0.15);
         }
 
         .mic-button:active {
@@ -431,7 +458,7 @@
         }
 
         .mic-icon {
-            font-size: 28px;
+            font-size: 26px;
         }
 
         @keyframes pulse {
@@ -461,6 +488,7 @@
             border-left: 4px solid #2ecc71;
             backdrop-filter: blur(4px);
             word-break: break-word;
+            text-align: center;
         }
 
         .test-voice-btn {
@@ -484,12 +512,10 @@
             margin-top: 14px;
             display: flex;
             gap: 6px;
-            justify-content: flex-start;
-            flex-wrap: nowrap;
             overflow-x: auto;
             padding: 4px 0 8px;
-            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
 
         .commands::-webkit-scrollbar {
@@ -533,9 +559,8 @@
             background: #e74c3c;
         }
 
-        /* ===== SIDE TOGGLE BUTTON ===== */
+        /* ===== SIDE TOGGLE BLEU ===== */
         .side-toggle {
-            position: relative;
             display: flex;
             justify-content: center;
             margin-top: 18px;
@@ -544,25 +569,24 @@
         }
 
         .side-toggle .toggle-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #c0c0dd;
-            padding: 10px 26px;
+            background: linear-gradient(145deg, #3498db, #2471a3);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: white;
+            padding: 11px 28px;
             border-radius: 60px;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.25s;
-            backdrop-filter: blur(4px);
             display: inline-flex;
             align-items: center;
             gap: 8px;
             letter-spacing: 0.3px;
+            box-shadow: 0 6px 18px rgba(52, 152, 219, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
 
         .side-toggle .toggle-btn:active {
             transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.08);
         }
 
         .side-toggle .toggle-btn .icon-arrow {
@@ -586,13 +610,22 @@
             }
 
             .bulb {
-                width: 100px;
-                height: 100px;
+                width: 80px;
+                height: 80px;
             }
 
             .mic-button {
-                width: 70px;
-                height: 70px;
+                width: 68px;
+                height: 68px;
+            }
+
+            .manual-btn {
+                font-size: 11px;
+                padding: 10px 6px;
+            }
+
+            .lamp-wrapper {
+                min-height: 195px;
             }
         }
     </style>
@@ -603,7 +636,7 @@
     <div class="app-wrapper">
 
         <!-- ========================================= -->
-        <!-- PANEL 1 : PRESENTATION (ENGLISH)          -->
+        <!-- PANEL 1 : PRESENTATION                    -->
         <!-- ========================================= -->
         <div class="panel presentation-panel active" id="presentationPanel">
             <div class="project-badge">⚡ Embedded Electronics · IoT</div>
@@ -630,13 +663,11 @@
                 <div class="badge-eng">🔧 M.Eng. · Embedded Systems</div>
             </div>
 
-            <div class="footer-note">
-                — Designed for hands‑on learning in technical education —
-            </div>
+            <div class="footer-note">— Designed for hands‑on learning in technical education —</div>
         </div>
 
         <!-- ========================================= -->
-        <!-- PANEL 2 : CONTROL INTERFACE (lamps)       -->
+        <!-- PANEL 2 : CONTROL INTERFACE               -->
         <!-- ========================================= -->
         <div class="panel control-panel" id="controlPanel">
 
@@ -645,8 +676,9 @@
                 <span class="lamp-indicator">🎤 voice ready</span>
             </div>
 
-            <!-- LAMPS -->
+            <!-- ===== LAMPS : 2 COLONNES VERTICALES ===== -->
             <div class="lamps-container">
+
                 <!-- Lampe 1 -->
                 <div class="lamp-wrapper">
                     <div class="lamp-label">LAMP 1</div>
@@ -658,10 +690,6 @@
                         <div class="bulkbase"></div>
                     </div>
                     <div class="status-badge off" id="statusBadge1">⚫ OFF</div>
-                    <div class="lamp-controls">
-                        <button class="lamp-btn btn-on" id="manualOn1">ON</button>
-                        <button class="lamp-btn btn-off" id="manualOff1">OFF</button>
-                    </div>
                 </div>
 
                 <!-- Lampe 2 -->
@@ -675,20 +703,38 @@
                         <div class="bulkbase"></div>
                     </div>
                     <div class="status-badge off" id="statusBadge2">⚫ OFF</div>
-                    <div class="lamp-controls">
-                        <button class="lamp-btn btn-on" id="manualOn2">ON</button>
-                        <button class="lamp-btn btn-off" id="manualOff2">OFF</button>
-                    </div>
                 </div>
             </div>
 
-            <!-- GLOBAL CONTROLS -->
+            <!-- ===== BLOC 4 BOUTONS MANUELS BLEUS – 3 LIGNES ===== -->
+            <div class="manual-buttons-panel">
+                <!-- Ligne 1 : Titre -->
+                <div class="manual-title">◈ MANUAL CONTROL ◈</div>
+
+                <!-- Ligne 2 : Boutons ON (Lampe 1 + Lampe 2) -->
+                <button class="manual-btn" id="manualOn1">
+                    LAMP 1 <span class="lbl">ON</span>
+                </button>
+                <button class="manual-btn" id="manualOn2">
+                    LAMP 2 <span class="lbl">ON</span>
+                </button>
+
+                <!-- Ligne 3 : Boutons OFF (Lampe 1 + Lampe 2) -->
+                <button class="manual-btn off" id="manualOff1">
+                    LAMP 1 <span class="lbl">OFF</span>
+                </button>
+                <button class="manual-btn off" id="manualOff2">
+                    LAMP 2 <span class="lbl">OFF</span>
+                </button>
+            </div>
+
+            <!-- ===== GLOBAL CONTROLS ===== -->
             <div class="global-controls">
                 <button class="global-btn btn-on" id="allOnBtn">🌟 ALL ON</button>
                 <button class="global-btn btn-off" id="allOffBtn">🌙 ALL OFF</button>
             </div>
 
-            <!-- MIC -->
+            <!-- ===== MIC ===== -->
             <div class="mic-section">
                 <button class="mic-button" id="micBtn">
                     <span class="mic-icon">🎤</span>
@@ -698,11 +744,9 @@
 
             <button class="test-voice-btn" id="testVoiceBtn">🔊 Test voice</button>
 
-            <div class="voice-status" id="voiceStatus">
-                🎤 Tap the mic and speak
-            </div>
+            <div class="voice-status" id="voiceStatus">🎤 Tap the mic and speak</div>
 
-            <!-- EXAMPLE COMMANDS -->
+            <!-- ===== COMMANDES EXEMPLES ===== -->
             <div class="commands">
                 <span class="cmd">"Turn on lamp 1"</span>
                 <span class="cmd">"Turn off lamp 2"</span>
@@ -711,16 +755,14 @@
                 <span class="cmd">"Toggle lamp 1"</span>
             </div>
 
-            <!-- FIREBASE STATUS -->
+            <!-- ===== FIREBASE STATUS ===== -->
             <div class="firebase-indicator" id="firebaseStatus">
                 <span class="dot" id="fbDot"></span>
                 <span id="fbText">Connecting Firebase...</span>
             </div>
         </div>
 
-        <!-- ========================================= -->
-        <!-- SIDE TOGGLE BUTTON (navigation)           -->
-        <!-- ========================================= -->
+        <!-- ===== SIDE TOGGLE (BLEU) ===== -->
         <div class="side-toggle">
             <button class="toggle-btn" id="togglePanelBtn">
                 <span class="icon-arrow" id="arrowIcon">▶</span>
@@ -730,13 +772,9 @@
 
     </div>
 
-    <!-- ========================================= -->
-    <!-- FIREBASE SDK                               -->
-    <!-- ========================================= -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js">
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js">
-    </script>
+    <!-- ===== FIREBASE SDK ===== -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
         // ===================================================
@@ -766,7 +804,6 @@
                 arrowIcon.classList.add('flip');
             }
         }
-
         toggleBtn.addEventListener('click', togglePanels);
 
         // ===================================================
@@ -871,7 +908,6 @@
         // SEND TO FIREBASE + FEEDBACK
         // ===================================================
         function sendToFirebase(lampId, etat) {
-            // immediate visual feedback
             if (lampId === 'all') {
                 updateBulbVisual(1, etat);
                 updateBulbVisual(2, etat);
@@ -891,12 +927,13 @@
 
             if (firebaseReady && database) {
                 const path = lampId === 'all' ? 'lampes' : `lampes/lampe${lampId}`;
-                const data = lampId === 'all' ? { lampe1: { etat: etat }, lampe2: { etat: etat } } : { etat: etat };
-                database.ref(path).set(data)
-                    .catch((error) => {
-                        voiceStatus.innerHTML = `❌ Firebase error: ${error.message}`;
-                        parler("Sorry, an error occurred");
-                    });
+                const data = lampId === 'all'
+                    ? { lampe1: { etat: etat }, lampe2: { etat: etat } }
+                    : { etat: etat };
+                database.ref(path).set(data).catch((error) => {
+                    voiceStatus.innerHTML = `❌ Firebase error: ${error.message}`;
+                    parler("Sorry, an error occurred");
+                });
             } else {
                 voiceStatus.innerHTML = '⚠️ Demo mode (Firebase not connected)';
             }
@@ -982,7 +1019,6 @@
                 const parole = event.results[0][0].transcript.toLowerCase().trim();
                 voiceStatus.innerHTML = `🗣️ You said: "${parole}"`;
 
-                // Command parsing (English & French friendly)
                 const allumerMatch = parole.match(/allume|allumer|allumé|allumez|active|activé|turn on|on|switch on/i);
                 const eteindreMatch = parole.match(/éteins|eteins|éteint|eteint|éteindre|eteindre|stop|arrête|désactive|turn off|off|switch off/i);
                 const lampe1Match = parole.match(/lampe\s*1|première\s*lampe|une|1|one|first/i);
@@ -1044,7 +1080,7 @@
         bulb1.addEventListener('click', () => sendToFirebase(1, currentLampStates[1] === 1 ? 0 : 1));
         bulb2.addEventListener('click', () => sendToFirebase(2, currentLampStates[2] === 1 ? 0 : 1));
 
-        // init visuel
+        // Init visuel
         updateBulbVisual(1, 0);
         updateBulbVisual(2, 0);
         voiceStatus.innerHTML = '✅ Ready. Control the two lamps!';
