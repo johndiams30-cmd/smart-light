@@ -33,6 +33,7 @@
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.06);
             overflow: hidden;
+            transition: max-width 0.4s ease, padding 0.4s ease;
         }
 
         .panel {
@@ -235,6 +236,21 @@
             margin-top: 12px;
             font-size: 10px;
             color: #666688;
+        }
+
+        /* ===== BADGE DE DÉTECTION APPAREIL ===== */
+        .device-badge {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            color: #aaa;
+            z-index: 9999;
+            backdrop-filter: blur(6px);
         }
 
         /* ===== CONTROL ===== */
@@ -666,10 +682,164 @@
         .icon-arrow.flip {
             transform: rotate(180deg);
         }
+
+        /* ============================================================
+       ✅ VERSION PC — ÉCRAN LARGE (≥ 768px)
+       ============================================================ */
+        @media (min-width: 768px) {
+            .app-wrapper {
+                max-width: 900px;
+                padding: 26px 24px 30px;
+                border-radius: 32px;
+            }
+
+            .presentation-panel h1 {
+                font-size: 32px;
+            }
+
+            .sub-head {
+                font-size: 15px;
+            }
+
+            .project-desc p {
+                font-size: 15px;
+            }
+
+            .logo-section .logo-img {
+                width: 130px;
+                height: 130px;
+            }
+
+            .logo-section .logo-text .logo-title {
+                font-size: 20px;
+            }
+
+            .logo-section .logo-text .logo-sub {
+                font-size: 11px;
+            }
+
+            .panel-header h2 {
+                font-size: 22px;
+            }
+
+            .lamp-indicator {
+                font-size: 13px;
+                padding: 5px 14px;
+            }
+
+            .lamps-container {
+                border-radius: 20px;
+                margin-bottom: 16px;
+            }
+
+            .lamp-wrapper {
+                padding: 30px 20px 26px;
+                min-height: 320px;
+                gap: 18px;
+            }
+
+            .lamp-label {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+
+            .status-badge {
+                font-size: 13px;
+                padding: 7px 18px;
+                min-width: 100px;
+                margin-top: 4px;
+            }
+
+            .control-buttons {
+                margin-bottom: 14px;
+                border-radius: 18px;
+            }
+
+            .side-btn {
+                padding: 24px 16px;
+                font-size: 16px;
+                min-height: 100px;
+                gap: 6px;
+            }
+
+            .side-btn .icon {
+                font-size: 28px;
+            }
+
+            .side-btn .lbl {
+                font-size: 11px;
+            }
+
+            .individual-panel,
+            .simultaneous-panel {
+                padding: 14px;
+                gap: 8px;
+                margin-bottom: 14px;
+            }
+
+            .mini-btn {
+                padding: 14px 8px;
+                font-size: 12px;
+            }
+
+            .mic-button {
+                width: 84px;
+                height: 84px;
+                font-size: 12px;
+            }
+
+            .mic-icon {
+                font-size: 30px;
+            }
+
+            .voice-status {
+                font-size: 14px;
+                padding: 14px 12px;
+                min-height: 56px;
+            }
+
+            .test-voice-btn {
+                font-size: 12px;
+                padding: 8px 20px;
+            }
+
+            .cmd {
+                font-size: 12px;
+                padding: 6px 14px;
+            }
+
+            .firebase-indicator {
+                font-size: 12px;
+            }
+
+            .toggle-btn {
+                padding: 12px 30px;
+                font-size: 14px;
+                border-radius: 70px;
+            }
+
+            /* Masquer le badge de détection sur grand écran */
+            .device-badge {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .app-wrapper {
+                max-width: 1000px;
+            }
+
+            .lamp-wrapper {
+                min-height: 360px;
+            }
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- ===== BADGE DE DÉTECTION APPAREIL (visible seulement en debug mobile) ===== -->
+    <div class="device-badge" id="deviceBadge">Détection…</div>
 
     <div class="app-wrapper">
 
@@ -678,7 +848,6 @@
         <!-- ===================================================== -->
         <div class="panel presentation-panel active" id="presentationPanel">
 
-            <!-- ✅ LOGO SOLED -->
             <div class="logo-section">
                 <img class="logo-img" src="image/mon-logo.png"
                     alt="SOLED - Solution Électronique pour le Développement" />
@@ -807,6 +976,74 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
+        /* ============================================================
+           ✅ DÉTECTION DU TYPE D'APPAREIL
+           ============================================================ */
+        const isMobile = /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(navigator.userAgent);
+        const isTablet = /iPad|Tablet|PlayBook|Silk/i.test(navigator.userAgent);
+        const isPC = !isMobile && !isTablet;
+
+        // Variable globale utilisable partout
+        const deviceType = isPC ? 'PC' : (isTablet ? 'TABLETTE' : 'MOBILE');
+
+        console.log(`🖥️📱 Type d'appareil détecté : ${deviceType}`);
+        console.log(`   isPC     = ${isPC}`);
+        console.log(`   isMobile = ${isMobile}`);
+        console.log(`   isTablet = ${isTablet}`);
+
+        // Mettre à jour le badge visuel
+        const deviceBadge = document.getElementById('deviceBadge');
+        if (deviceBadge) {
+            const emoji = isPC ? '🖥️' : (isTablet ? '📱' : '📱');
+            deviceBadge.textContent = `${emoji} ${deviceType}`;
+        }
+
+        // Ajouter une classe au body pour cibler le CSS selon l'appareil
+        document.body.classList.add(isPC ? 'device-pc' : 'device-mobile');
+        if (isTablet) document.body.classList.add('device-tablet');
+
+        // ✅ ACTIONS SPÉCIFIQUES PC
+        if (isPC) {
+            console.log('🖥️ Version PC active — interface large activée');
+            // Exemple : afficher un message dans la console
+            // Exemple : précharger des données supplémentaires
+            document.documentElement.style.setProperty('--device-padding', '24px');
+        }
+        // ✅ ACTIONS SPÉCIFIQUES MOBILE
+        else {
+            console.log('📱 Version Mobile active — interface compacte activée');
+            // Exemple : masquer le badge après 3 secondes
+            if (deviceBadge) {
+                setTimeout(() => {
+                    deviceBadge.style.transition = 'opacity 0.5s';
+                    deviceBadge.style.opacity = '0';
+                    setTimeout(() => deviceBadge.remove(), 600);
+                }, 3000);
+            }
+            document.documentElement.style.setProperty('--device-padding', '12px');
+        }
+
+        // Re-détecter au changement d'orientation (rotation téléphone)
+        window.addEventListener('resize', () => {
+            const widthNow = window.innerWidth;
+            if (widthNow >= 768 && !document.body.classList.contains('device-pc')) {
+                console.log('🔄 Bascule vers version PC (élargissement)');
+                document.body.classList.remove('device-mobile');
+                document.body.classList.add('device-pc');
+            } else if (widthNow < 768 && !document.body.classList.contains('device-mobile')) {
+                console.log('🔄 Bascule vers version Mobile (rétrécissement)');
+                document.body.classList.remove('device-pc');
+                document.body.classList.add('device-mobile');
+            }
+        });
+
+        // Exposer ces variables globalement pour utilisation ultérieure
+        window.deviceInfo = { isPC, isMobile, isTablet, deviceType };
+
+        /* ============================================================
+           RESTE DU CODE — LOGIQUE DE L'APPLICATION
+           ============================================================ */
+
         // ===== PANEL TOGGLE =====
         const presentationPanel = document.getElementById('presentationPanel');
         const controlPanel = document.getElementById('controlPanel');
